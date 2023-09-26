@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :events
-  root to: "events#index"
+  root to: "event#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
