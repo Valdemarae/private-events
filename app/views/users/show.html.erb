@@ -2,7 +2,7 @@
 <h3>Created events</h3>
 <ul>
   <% @user.created_events.each do |event| %>
-    <li><%= event.title %></li>
+    <li><%= link_to event.title, event_path(event.id) %></li>
   <% end %>
 </ul>
 <h3>Attended events</h3>
@@ -11,7 +11,7 @@
     <h4>Occured in the past</h4>
     <ul>
       <% @user.attended_events.where(date: ...(Date.today)).each do |event| %>
-        <li><%= event.title %> (<%= event.date %>)</li>
+        <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
       <% end %>
     </ul>
   </li>
@@ -19,7 +19,7 @@
     <h4>Will occur in the future</h4>
     <ul>
       <% @user.attended_events.where(date: (Date.today)..).each do |event| %>
-        <li><%= event.title %> (<%= event.date %>)</li>
+        <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
       <% end %>
     </ul>
   </li>

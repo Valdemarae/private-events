@@ -8,6 +8,7 @@
 <h2>A list of attendees</h2>
 <ul>
   <% @event.attendees.each do |attendee| %>
-    <li><%= attendee.name %></li>
+    <li><%= link_to attendee.name, user_path(attendee.id) %></li>
   <% end %>
 </ul>
+<%= link_to "Go Back", events_path %>

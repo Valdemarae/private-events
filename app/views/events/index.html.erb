@@ -1,11 +1,12 @@
 <h1>Events</h1>
+<%= link_to "Create An Event", new_event_path %>
 <ul>
   <li>
     <h2>Upcoming events</h2>
     <ul>
       <% Event.upcoming.each do |event| %>
         <li>
-          <h3><%= event.title %></h3>
+          <h3><%= link_to event.title, event_path(event.id) %></h3>
           <h3><%= event.date %></h3>
         </li>
         <br/>
@@ -17,7 +18,7 @@
     <ul>
       <% Event.past.each do |event| %>
         <li>
-          <h3><%= event.title %></h3>
+          <h3><%= link_to event.title, event_path(event.id) %></h3>
           <h3><%= event.date %></h3>
         </li>
         <br/>
