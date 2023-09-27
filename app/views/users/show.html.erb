@@ -1,26 +1,33 @@
 <h2><%= @user.name %></h2>
-<h3>Created events</h3>
-<ul>
-  <% @user.created_events.each do |event| %>
-    <li><%= link_to event.title, event_path(event.id) %></li>
-  <% end %>
-</ul>
+<% if @user.created_events.any? %>
+  <h3>Created events</h3>
+  <ul>
+    <% @user.created_events.each do |event| %>
+      <li><%= link_to event.title, event_path(event.id) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <h3>Attended events</h3>
 <ul>
-  <li>
-    <h4>Occured in the past</h4>
-    <ul>
-      <% @user.attended_events.where(date: ...(Date.today)).each do |event| %>
-        <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
-      <% end %>
-    </ul>
-  </li>
-  <li>
-    <h4>Will occur in the future</h4>
-    <ul>
-      <% @user.attended_events.where(date: (Date.today)..).each do |event| %>
-        <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
-      <% end %>
-    </ul>
-  </li>
+  <% if @user.attended_events.where(date: ...(Date.today)).any? %>
+    <li>
+      <h4>Occured in the past</h4>
+      <ul>
+        <% @user.attended_events.where(date: ...(Date.today)).each do |event| %>
+          <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  <% if @user.attended_events.where(date: (Date.today)..).any? %>
+    <li>
+      <h4>Will occur in the future</h4>
+      <ul>
+        <% @user.attended_events.where(date: (Date.today)..).each do |event| %>
+          <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
 </ul>
