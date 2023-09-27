@@ -1,6 +1,27 @@
 <h1>Events</h1>
-<% @events.each do |event| %>
-  <h3><%= event.title %></h3>
-  <h3><%= event.date %></h3>
-  <br/>
-<% end %>
+<ul>
+  <li>
+    <h2>Upcoming events</h2>
+    <ul>
+      <% Event.upcoming.each do |event| %>
+        <li>
+          <h3><%= event.title %></h3>
+          <h3><%= event.date %></h3>
+        </li>
+        <br/>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    <h2>Past events</h2>
+    <ul>
+      <% Event.past.each do |event| %>
+        <li>
+          <h3><%= event.title %></h3>
+          <h3><%= event.date %></h3>
+        </li>
+        <br/>
+      <% end %>
+    </ul>
+  </li>
+</ul>
