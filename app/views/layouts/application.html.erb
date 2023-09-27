@@ -18,12 +18,12 @@
       <h4>
         <% if user_signed_in? %>
           <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+          <%= link_to "Profile", user_path(current_user.id) %>
         <% else %>
           <%= link_to "Log in", new_user_session_path %>
           <%= link_to "Sign up", new_user_registration_path %>
         <% end %>
         <%= link_to "Events", events_path %>
-        <%= link_to "Profile", user_path(current_user.id) %>
       </h4>
     </div>
 
