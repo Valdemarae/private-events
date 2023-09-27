@@ -7,7 +7,20 @@
 </ul>
 <h3>Attended events</h3>
 <ul>
-  <% @user.attended_events.each do |event| %>
-    <li><%= event.title %></li>
-  <% end %>
+  <li>
+    <h4>Occured in the past</h4>
+    <ul>
+      <% @user.attended_events.where(date: ...(Date.today)).each do |event| %>
+        <li><%= event.title %> (<%= event.date %>)</li>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    <h4>Will occur in the future</h4>
+    <ul>
+      <% @user.attended_events.where(date: (Date.today)..).each do |event| %>
+        <li><%= event.title %> (<%= event.date %>)</li>
+      <% end %>
+    </ul>
+  </li>
 </ul>
