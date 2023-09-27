@@ -3,5 +3,11 @@
 <%= form_with model: EventAttendee.new do |f| %>
   <%= hidden_field_tag "event_attendee[attendee_id]", current_user.id %>
   <%= hidden_field_tag "event_attendee[attended_event_id]", @event.id %>
-  <%= f.submit %>
+  <%= f.submit "Attend" %>
 <% end %>
+<h2>A list of attendees</h2>
+<ul>
+  <% @event.attendees.each do |attendee| %>
+    <li><%= attendee.name %></li>
+  <% end %>
+</ul>
