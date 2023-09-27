@@ -6,4 +6,7 @@ class Event < ApplicationRecord
 
   has_many :event_attendees, foreign_key: "attended_event_id"
   has_many :attendees, through: :event_attendees, source: :attendee
+
+  validates :title, :presence => true
+  validates :date, :presence => true
 end
