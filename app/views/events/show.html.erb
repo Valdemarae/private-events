@@ -1,10 +1,16 @@
 <h1><%= @event.title %></h1>
 <h2><%= @event.date %></h2>
-<%= form_with model: EventAttendee.new do |f| %>
-  <%= hidden_field_tag "event_attendee[attendee_id]", current_user.id %>
-  <%= hidden_field_tag "event_attendee[attended_event_id]", @event.id %>
-  <%= f.submit "Attend" %>
+
+<% if user_signed_in? %>
+  <%= form_with model: EventAttendee.new do |f| %>
+    <%= hidden_field_tag "event_attendee[attendee_id]", current_user.id %>
+    <%= hidden_field_tag "event_attendee[attended_event_id]", @event.id %>
+    <%= f.submit "Attend" %>
+  <% end %>
+<% else %>
+  <h4><%= link_to "Sign in to attend an event", new_user_session_path %></h4>
 <% end %>
+
 <h2>A list of attendees</h2>
 <ul>
   <% @event.attendees.each do |attendee| %>
