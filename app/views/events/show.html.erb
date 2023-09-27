@@ -1,2 +1,7 @@
 <h1><%= @event.title %></h1>
 <h2><%= @event.date %></h2>
+<%= form_with model: EventAttendee.new do |f| %>
+  <%= hidden_field_tag "event_attendee[attendee_id]", current_user.id %>
+  <%= hidden_field_tag "event_attendee[attended_event_id]", @event.id %>
+  <%= f.submit %>
+<% end %>
