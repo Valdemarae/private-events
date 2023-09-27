@@ -8,7 +8,9 @@
   </ul>
 <% end %>
 
-<h3>Attended events</h3>
+<% if @user.attended_events.any? %>
+  <h3>Attended events</h3>
+<% end %>
 <ul>
   <% if @user.attended_events.where(date: ...(Date.today)).any? %>
     <li>
