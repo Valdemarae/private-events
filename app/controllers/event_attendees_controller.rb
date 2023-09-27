@@ -2,7 +2,7 @@ class EventAttendeesController < ApplicationController
   def create
     @event_attendee = EventAttendee.new(event_attendee_params)
 
-    @event_attendee.save unless EventAttendee.find_by(attendee_id: current_user.id)
+    @event_attendee.save unless EventAttendee.exists?(attendee_id: @event_attendee.attendee_id, attended_event_id: @event_attendee.attended_event_id)
     redirect_to root_path
   end
 
