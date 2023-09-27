@@ -6,6 +6,7 @@
   <%= f.label :title %>
   <%= f.text_field :title %>
   <%= f.label :date %>
-  <%= f.date_field :date, value: Date.today %>
+  <%= f.date_field :date, value: @event.date %>
   <%= f.submit %>
 <% end %>
+<%= link_to 'Delete', event_path(@event.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
