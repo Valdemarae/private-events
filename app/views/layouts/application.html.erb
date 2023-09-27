@@ -17,7 +17,7 @@
     <div class="Header">
       <h4>
         <% if user_signed_in? %>
-          <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+          <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete, turbo_confirm: 'Are you sure you want to log out?'} %>
           <%= link_to "Profile", user_path(current_user.id) %>
         <% else %>
           <%= link_to "Log in", new_user_session_path %>
