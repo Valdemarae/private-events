@@ -8,13 +8,10 @@
 
   <% if current_user.attended_events.ids.include?(@event.id) %>
     <%= button_to 'Not Attend', event_attendee_path(EventAttendee.where(attended_event_id: @event.id,
-                                                  attendee_id: current_user).ids[0]), method: :delete %>
+                                              attendee_id: current_user).ids[0]), method: :delete %>
   <% else %>
-    <%= form_with model: EventAttendee.new do |f| %>
-      <%= hidden_field_tag "event_attendee[attendee_id]", current_user.id %>
-      <%= hidden_field_tag "event_attendee[attended_event_id]", @event.id %>
-      <%= f.submit "Attend" %>
-    <% end %>
+  <%= button_to 'Attend', event_attendees_path("event_attendee[attendee_id]": current_user.id, 
+                            "event_attendee[attended_event_id]": @event.id), method: :post %>
   <% end %>
 <% else %>
   <h4><%= link_to "Sign in to attend an event", new_user_session_path %></h4>
