@@ -42,3 +42,21 @@
     <% end %>
   </ol>
 <% end %>
+
+<br/>
+
+<% if @user.invited_events.any? %>
+  <h3>Invitations to events</h3>
+  <ol>
+    <% @user.invited_events.each do |event| %>
+      <li>
+        <%= link_to event.title, event_path(event.id) %>
+        (<%= event.date %>)
+        <%= button_to "accept", invitation_accept_path(id: Invitation.find_by(invited_event_id: event.id, 
+                                      invited_user_id: @user.id).id) %>
+        <%= button_to "decline", invitation_path(Invitation.find_by(invited_event_id: event.id, 
+                                              invited_user_id: @user.id).id), method: :delete %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

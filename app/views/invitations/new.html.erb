@@ -1,0 +1,15 @@
+<h1>Invite Users</h1>
+
+<% event = Event.find(params[:id])%>
+<ul>
+  <% User.all.each do |user| %>
+    <% unless event.invited_users.ids.include?(user.id) || event.attendees.ids.include?(user.id)%>
+      <li>
+        <%= user.name %>
+        <%= button_to "Invite", invitations_path("invitation[invited_user_id]": user.id, "invitation[invited_event_id]": event.id) %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= link_to "Back to the event", event_path(params[:id]) %>

@@ -14,6 +14,8 @@ class EventAttendeesController < ApplicationController
 
   def update
     @event_attendee = EventAttendee.find(params[:id])
+    invitation = Invitation.find_by(invited_event_id: @event_attendee.attended_event_id, invited_user_id: @event_attendee.attendee_id)
+    invitation.destroy if invitation
     @event_attendee.update(approved: true)
     redirect_to event_path(@event_attendee.attended_event_id)
   end
