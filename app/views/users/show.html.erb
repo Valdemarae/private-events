@@ -10,26 +10,35 @@
 
 <% if @user.attended_events.any? %>
   <h3>Attended events</h3>
+  <ul>
+    <% if @user.attended_events.where(date: ...(Date.today)).any? %>
+      <li>
+        <h4>Occured in the past</h4>
+        <ul>
+          <% @user.attended_events.where(date: ...(Date.today)).each do |event| %>
+            <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+    <% if @user.attended_events.where(date: (Date.today)..).any? %>
+      <li>
+        <h4>Will occur in the future</h4>
+        <ul>
+          <% @user.attended_events.where(date: (Date.today)..).each do |event| %>
+            <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
-<ul>
-  <% if @user.attended_events.where(date: ...(Date.today)).any? %>
-    <li>
-      <h4>Occured in the past</h4>
-      <ul>
-        <% @user.attended_events.where(date: ...(Date.today)).each do |event| %>
-          <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
-  <% if @user.attended_events.where(date: (Date.today)..).any? %>
-    <li>
-      <h4>Will occur in the future</h4>
-      <ul>
-        <% @user.attended_events.where(date: (Date.today)..).each do |event| %>
-          <li><%= link_to event.title, event_path(event.id) %> (<%= event.date %>)</li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
-</ul>
+
+<% if @user.pending_attendance_events.any? %>
+  <h3>Pending Attendance Requests</h3>
+  <ol>
+    <% @user.pending_attendance_events.each do |event| %>
+      <li><%= link_to event.title, event_path(event.id) %></li>
+    <% end %>
+  </ol>
+<% end %>

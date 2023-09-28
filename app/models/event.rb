@@ -5,7 +5,8 @@ class Event < ApplicationRecord
   belongs_to :creator, class_name: "User"
 
   has_many :event_attendees, foreign_key: "attended_event_id", dependent: :destroy
-  has_many :attendees, through: :event_attendees, source: :attendee
+  has_many :attendees, -> { where('event_attendees.approved = ?', true) }, through: :event_attendees, source: :attendee
+  has_many :not_approved_attendees, -> { where('event_attendees.approved = ?', false) }, through: :event_attendees, source: :attendee
 
   validates :title, :presence => true
   validates :date, :presence => true
