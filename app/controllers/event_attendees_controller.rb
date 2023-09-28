@@ -6,6 +6,12 @@ class EventAttendeesController < ApplicationController
     redirect_to event_path(@event_attendee.attended_event_id)
   end
 
+  def destroy
+    @event_attendee = EventAttendee.find(params[:id])
+    @event_attendee.destroy
+    redirect_to event_path(params[:id])
+  end
+
   private
 
   def event_attendee_params

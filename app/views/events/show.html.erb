@@ -5,13 +5,16 @@
   <% if current_user.created_events.ids.include?(@event.id) %>
     <h3><%= link_to "Edit Event", edit_event_path %></h3>
   <% end %>
-<% end %>
 
-<% if user_signed_in? %>
-  <%= form_with model: EventAttendee.new do |f| %>
-    <%= hidden_field_tag "event_attendee[attendee_id]", current_user.id %>
-    <%= hidden_field_tag "event_attendee[attended_event_id]", @event.id %>
-    <%= f.submit "Attend" %>
+  <% if current_user.attended_events.ids.include?(@event.id) %>
+    <%= button_to 'Not Attend', event_attendee_path(EventAttendee.where(attended_event_id: @event.id,
+                                                  attendee_id: current_user).ids[0]), method: :delete %>
+  <% else %>
+    <%= form_with model: EventAttendee.new do |f| %>
+      <%= hidden_field_tag "event_attendee[attendee_id]", current_user.id %>
+      <%= hidden_field_tag "event_attendee[attended_event_id]", @event.id %>
+      <%= f.submit "Attend" %>
+    <% end %>
   <% end %>
 <% else %>
   <h4><%= link_to "Sign in to attend an event", new_user_session_path %></h4>
